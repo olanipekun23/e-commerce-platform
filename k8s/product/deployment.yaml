@@ -2,19 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: product-service
+  namespace: default
+  labels:
+    app: product-service
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: product
+      app: product-service
   template:
     metadata:
       labels:
-        app: product
+        app: product-service
     spec:
       containers:
-        - name: product
+        - name: product-service
           image: awodeyitobi/product-service:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 3000   # Make sure your container actually listens on 3000
+          imagePullPolicy: Always
 
